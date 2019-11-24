@@ -9,6 +9,7 @@ class Experiment:
 
     def __init__(self, name, env_name):
         print('Beginning Experiment: ' + name)
+        self.name = name
         self.env = gym.make(env_name)
         self.gamma = .1
 
@@ -30,7 +31,7 @@ class Experiment:
         self.env.reset()
         ql_agent = QLearningAgent(self.env)
         q, stats = ql_agent.q_learning(self.env, 500)
-        plotting.plot_episode_stats(stats)
+        plotting.plot_episode_stats(stats, experiment_name=self.name)
 
 
 frozenLakeExperiment = Experiment('Frozen Lake', 'FrozenLake-v0')

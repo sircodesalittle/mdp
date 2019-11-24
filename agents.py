@@ -4,9 +4,11 @@ import sys
 
 from collections import defaultdict
 import plotting
+import time
 
 MAX_MAX_ITERATIONS = 10000
 RENDER = False
+CONVERGENCE_EPSILON = 1e-1
 
 
 class ValueIterationAgent:
@@ -14,7 +16,9 @@ class ValueIterationAgent:
 
     def __init__(self, env, gamma):
         self.gamma = gamma
+        start_time = time.time()
         optimal_v, self.convergence = ValueIterationAgent.value_iteration(env)
+        print('\t\tConverged in %s seconds' % (time.time() - start_time))
         self.policy = ValueIterationAgent.extract_policy(env, optimal_v, gamma)
         self.scores = ValueIterationAgent.evaluate_policy(env, self.policy)
 
@@ -72,7 +76,7 @@ class ValueIterationAgent:
     def value_iteration(env):
         """ Value-iteration algorithm """
         v = np.zeros(env.nS)  # initialize value-function
-        eps = 1e-10
+        eps = CONVERGENCE_EPSILON
         convergence = ValueIterationAgent.MAX_ITERATIONS
         for i in range(ValueIterationAgent.MAX_ITERATIONS):
             prev_v = np.copy(v)
@@ -90,7 +94,9 @@ class PolicyIterationAgent:
 
     def __init__(self, env, gamma):
         self.gamma = gamma
+        start_time = time.time()
         self.policy, self.convergence = PolicyIterationAgent.policy_iteration(env, gamma)
+        print('\t\tConverged in %s seconds' % (time.time() - start_time))
         self.scores = PolicyIterationAgent.evaluate_policy(env, self.policy)
 
     @staticmethod
@@ -132,7 +138,7 @@ class PolicyIterationAgent:
         and solve them to find the value function.
         """
         v = np.zeros(env.nS)
-        eps = 1e-10
+        eps = CONVERGENCE_EPSILON
         while True:
             prev_v = np.copy(v)
             for s in range(env.nS):

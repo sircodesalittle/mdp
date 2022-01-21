@@ -6,7 +6,7 @@ decorator==4.4.1
 future==0.18.2
 gym==0.15.4
 -e git+https://github.com/hiive/hiivemdptoolbox@e61700c59e24cfe18ca01d932dbea526707e720a#egg=hiive.mdptoolbox
-ipython==7.9.0
+ipython==7.16.3
 ipython-genutils==0.2.0
 jedi==0.15.1
 kiwisolver==1.1.0
